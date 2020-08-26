@@ -4,4 +4,4 @@
 
 ---
 
-  This PowerShell module can be used in the process of data extraction from files or web sites by using regular expressions.
+  This PowerShell module can be used for data extraction from files or web sites by using regular expressions.
