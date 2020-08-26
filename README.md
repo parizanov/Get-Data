@@ -1,6 +1,7 @@
 # Get-Data
 
-Some text
+![GitHub repo size](https://img.shields.io/github/repo-size/parizanov/get-data)
 
 ---
-![GitHub repo size](https://img.shields.io/github/repo-size/parizanov/get-data)
+
+Some text
