@@ -1,5 +1,32 @@
-﻿function Get-Data{
-
+function Get-Data{
+    <#
+    .SYNOPSIS
+    Returns extracted data from a data source(file, web page, etc.) in the form of a PS object.
+    
+    .DESCRIPTION
+    The Get-Data function can be used to extract data from a data source (file, web page, etc) and it will return PS object. You must provide the data source,
+    parametrers' names and regular expression to pull out the information you want and receive it in the form of PS object. The data then can be used for further processing
+    or stored in a database.
+    
+    .PARAMETER DataSource
+    Path to the file from where you will extract the information.
+    
+    .PARAMETER ObjectProperty
+    Name/Names of the object property/properties.
+    
+    .PARAMETER Regex
+    Regular expression for each object property name, so that you have values for 
+    the properties.
+    
+    .EXAMPLE
+    Get-Data 
+    
+    .EXAMPLE
+    
+    .NOTES
+    
+    
+    #>
     Param(
     [Parameter(Mandatory=$true,
     ValueFromPipeline=$true)]
