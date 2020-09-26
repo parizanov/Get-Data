@@ -60,19 +60,27 @@ function Get-Data{
         PropertyValue = $DataSource | Select-String -Pattern $Regex | ForEach-Object{$_.Matches} | ForEach-Object{$_.Value}}
     }
 
-    
-    $endcount = ($matched| select -First 1).propertyvalue.count
-    for($i=0; $i -le $endcount; $i++){
     $obj = [pscustomobject]@{}
-        foreach($item in $matched){
+    $endcount = ($matched | select -First 1).propertyvalue.count
+    if($endcount -eq 1){$obj = [pscustomobject]@{}
+        $obj | Add-Member -NotePropertyName $matched.ObjectProperty -NotePropertyValue $matched.PropertyValue
+        Write-Output $obj
+    }
+    else{
+        $result = @()
+    for($i=0; $i -le $endcount; $i++){
         
-            $obj | Add-Member -NotePropertyName $item.ObjectProperty -NotePropertyValue $item.PropertyValue[$i]
+            foreach($item in $matched){
+        
+               $obj | Add-Member -NotePropertyName $item.ObjectProperty -NotePropertyValue $item.PropertyValue[$i]
 
+            }
+            $result += $obj
+            
         }
+        Write-Output $result
+    }
 
     
-    Write-Output $obj
-    }
     
 }
-
