@@ -60,19 +60,32 @@ function Get-Data{
         PropertyValue = $DataSource | Select-String -Pattern $Regex | ForEach-Object{$_.Matches} | ForEach-Object{$_.Value}}
     }
 
-    $obj = [pscustomobject]@{}
-    $endcount = ($matched | select -First 1).propertyvalue.count
-    if($endcount -eq 1){$obj = [pscustomobject]@{}
+    #$obj = [pscustomobject]@{}
+    $propvaluecount = ($matched | select -First 1).propertyvalue.count
+    $objpropcount = $matched.objectproperty.count
+    if($propvaluecount -eq 1 -and $objpropcount -eq 1 ){$obj = [pscustomobject]@{}
         $obj | Add-Member -NotePropertyName $matched.ObjectProperty -NotePropertyValue $matched.PropertyValue
         Write-Output $obj
     }
+    elseif($propvaluecount -eq 1 -and $objpropcount -gt 1){
+       $result = @()
+        $obj = [pscustomobject]@{}
+            foreach($item in $matched){
+               #
+               $obj | Add-Member -NotePropertyName $item.ObjectProperty -NotePropertyValue $item.PropertyValue -Force
+
+            }
+            $result += $obj
+            
+        Write-Output $result 
+    }
     else{
         $result = @()
-    for($i=0; $i -le $endcount; $i++){
-        
+        for($i=0; $i -le $propvaluecount; $i++){
+        $obj = [pscustomobject]@{}
             foreach($item in $matched){
-        
-               $obj | Add-Member -NotePropertyName $item.ObjectProperty -NotePropertyValue $item.PropertyValue[$i]
+               #
+               $obj | Add-Member -NotePropertyName $item.ObjectProperty -NotePropertyValue $item.PropertyValue[$i] -Force
 
             }
             $result += $obj
