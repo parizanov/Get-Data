@@ -5,4 +5,4 @@
 ---
 
   This PowerShell module can be used for data extraction on files or web sites by using regular expressions.
-
+You provide object's property names and regular expressions and the result is a PS object with the data you need.
